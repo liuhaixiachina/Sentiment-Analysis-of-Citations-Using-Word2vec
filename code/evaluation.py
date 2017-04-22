@@ -64,7 +64,7 @@ def getAvgFeatureVecs(reviews, model, num_features):
     # the average feature vector for each one and return a 2D numpy array
     #
     # Initialize a counter
-    counter = 0.
+    counter = 0
     #
     # Preallocate a 2D numpy array, for speed
     reviewFeatureVecs = np.zeros((len(reviews),num_features),dtype="float32")
@@ -81,7 +81,7 @@ def getAvgFeatureVecs(reviews, model, num_features):
            num_features)
        #
        # Increment the counter
-       counter = counter + 1.
+       counter = counter + 1
     return reviewFeatureVecs
 
 
