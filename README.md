@@ -13,3 +13,6 @@ You may need to install the following packages: pandas, nltk, numpy, gensim and 
 There are already-trained models for use: under the folder "trainedmodels". Note that the model "PS-ACL300" is a text file. When you try to load the text format model, use this code: model=Word2Vec.load_word2vec_format(model_name, binary=False) # for text format
 
  
+ Post experiment on using vectors trained on Googlenews
+:
+('F1', 0.38) for positive and negtive classification.
