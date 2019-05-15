@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import sklearn
 from sklearn import svm, datasets
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import roc_curve
 from sklearn.metrics import average_precision_score
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import label_binarize
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn import cross_validation
+from sklearn import model_selection
 from sklearn.metrics import f1_score
 from scipy import stats
 from sklearn import datasets
@@ -144,9 +145,9 @@ if __name__ == '__main__':
 #         # y_score = classifier.fit(X_train, y_train).predict(X_test)
 #                                          #
 #         # y_score = classifier.predict(X_test)
-#         # y_score = cross_validation.cross_val_score(classifier, full_data_X, y, cv=5)
-#         # cv = cross_validation.ShuffleSplit(n_classes, n_iter=3, test_size=0.3, random_state=0)
-#         # y_score=cross_validation.cross_val_score(classifier, full_data_X, y, cv=cv)
+#         # y_score = model_selection.cross_val_score(classifier, full_data_X, y, cv=5)
+#         # cv = model_selection.ShuffleSplit(n_classes, n_iter=3, test_size=0.3, random_state=0)
+#         # y_score=model_selection.cross_val_score(classifier, full_data_X, y, cv=cv)
 #         # print y_score
 #
 #         # Compute Precision-Recall and plot curve
@@ -191,17 +192,17 @@ if __name__ == '__main__':
 #     print 'summacrof = '+str(summacrof/n)
 # haixia comment
 
-    # shuffle = cross_validation.ShuffleSplit(len(y), n_iter=10)
+    # shuffle = model_selection.ShuffleSplit(len(y), n_iter=10)
     clf = LinearSVC(penalty = 'l2')
     # clf = svm.SVC(kernel='linear')
     n_folds=10
-    # precision = cross_validation.cross_val_score(clf, full_data_X, y, cv=n_folds, scoring='precision')
+    # precision = model_selection.cross_val_score(clf, full_data_X, y, cv=n_folds, scoring='precision')
     # print('Precision', np.mean(precision), precision)
     #
-    # recall = cross_validation.cross_val_score(clf, full_data_X, y, cv=n_folds, scoring='recall')
+    # recall = model_selection.cross_val_score(clf, full_data_X, y, cv=n_folds, scoring='recall')
     # print('Recall', np.mean(recall), recall)
 
-    f1 = cross_validation.cross_val_score(clf, full_data_X, y, cv=n_folds, scoring='f1')
+    f1 = model_selection.cross_val_score(clf, full_data_X, y, cv=n_folds, scoring='f1')
     print('F1', np.mean(f1), f1)
 
     # # Compute micro-average ROC curve and ROC area
