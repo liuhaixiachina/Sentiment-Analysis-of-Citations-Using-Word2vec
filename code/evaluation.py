@@ -4,16 +4,16 @@ from sklearn import svm, datasets
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import roc_curve
 from sklearn.metrics import average_precision_score
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import label_binarize
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn import cross_validation
+from sklearn import model_selection
 from sklearn.metrics import f1_score
 from scipy import stats
 from sklearn import datasets
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
-from sklearn import preprocessing
+from sklearn import impute
 from patsy import dmatrices
 import pandas as pd
 import os
@@ -23,13 +23,14 @@ import logging
 import numpy as np  # Make sure that numpy is imported
 from gensim.models import Word2Vec
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import Imputer
+from sklearn.impute import SimpleImputer
 from KaggleWord2VecUtility import KaggleWord2VecUtility
 from sklearn.metrics import accuracy_score
+from importlib import reload
 import sys
 
 reload(sys)
-sys.setdefaultencoding('utf8')
+#sys.setdefaultencoding('utf8')
 
 # ****** Define functions to create average word vectors
 #
@@ -94,7 +95,7 @@ def getCleanReviews(reviews):
 
 
 if __name__ == '__main__':
-    full = pd.read_csv( os.path.join(os.path.dirname(__file__), "data/fortrainmodel/sentiment-n-p.csv"), header=0, quoting=3 )
+    full = pd.read_csv( os.path.join(os.path.dirname(os.path.dirname(__file__)), "data/foreval/sentiment-n-p.csv"), header=0, quoting=3 )
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
     # Set values for various parameters
@@ -116,11 +117,11 @@ if __name__ == '__main__':
     # print model
     fullDataVecs = getAvgFeatureVecs( getCleanReviews(full), model, num_features )
     # print fullDataVecs
-    imp=Imputer(missing_values='NaN',strategy='mean',axis=0)
+    imp=SimpleImputer(missing_values='NaN',strategy='mean',axis=0)
     imp.fit_transform(fullDataVecs)
     new_full_data=imp.transform(fullDataVecs)
     full_data_X = new_full_data
-    print full_data_X
+    print(full_data_X)
     y=full["sentiment"]
 
     desired_array = [int(numeric_string) for numeric_string in y]

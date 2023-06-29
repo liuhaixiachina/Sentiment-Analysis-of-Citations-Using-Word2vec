@@ -69,7 +69,7 @@ def getAvgFeatureVecs(reviews, model, num_features):
        #
        # Print a status message every 1000th review
        if counter%1000. == 0.:
-           print "Review %d of %d" % (counter, len(reviews))
+           print("Review %d of %d" % (counter, len(reviews)))
        #
        # Call the function (defined above) that makes average feature vectors
        reviewFeatureVecs[counter] = makeFeatureVec(review, model, \
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     # test = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data', 'testACL1000.csv'), header=0, delimiter="\t", quoting=3 )
     # aclALL = pd.read_csv( os.path.join(os.path.dirname(__file__), 'data', 'sentences.csv'), header=0, quoting=3 )
     # aclALL = pd.read_csv( os.path.join(os.path.dirname(__file__), 'data', 'sorted1971-2011.csv'), header=0, quoting=3 )
-    aclALL = pd.read_csv( os.path.join(os.path.dirname(__file__), 'data/fortrainmodel/', 'aclALLRemovelessThan3words622144.csv'), header=0,delimiter=",", quoting=3 )
+    aclALL = pd.read_csv( os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data/fortrainmodel/', 'ACLPart1.csv'), header=0,delimiter=",", quoting=3 )
 
 
     # aclAnnotated = pd.read_csv( os.path.join(os.path.dirname(__file__), 'data', 'ACLAnnotatedTrain.csv'), header=0, quoting=3 )
@@ -122,9 +122,9 @@ if __name__ == '__main__':
     #     for line in fp:
     #         fullfile.append(line)
     # Verify the number of reviews that were read (100,000 in total)
-    # print "Read %d labeled train reviews, %d labeled test reviews, " \
+    # print("Read %d labeled train reviews, %d labeled test reviews, " \
     #  "and %d unlabeled reviews\n" % (train["review"].size,
-    #  test["review"].size, unlabeled_train["review"].size )
+    #  test["review"].size, unlabeled_train["review"].size ))
 
 
 
@@ -136,22 +136,22 @@ if __name__ == '__main__':
     # ****** Split the labeled and unlabeled training sets into clean sentences
     #
     sentences = []  # Initialize an empty list of sentences
-        # print "Parsing sentences from aclALL"
+        # print("Parsing sentences from aclALL")
     for review in aclALL["review"]:
         if str(review).strip() != '' and str(review).strip() != ' ':
             sentences += KaggleWord2VecUtility.review_to_sentences(review, tokenizer)
 
-                    # print "Parsing sentences from aclAnnotated"
+                    # print("Parsing sentences from aclAnnotated")
     # for review in aclAnnotated["review"]:
     #     if str(review).strip() != '' and str(review).strip() != ' ':
     #         sentences += KaggleWord2VecUtility.review_to_sentences(review, tokenizer)
 
-    # print "Parsing sentences from training set"
+    # print("Parsing sentences from training set")
     # for review in train["review"]:
     #     if str(review).strip() != '' and str(review).strip() != ' ':
     #         sentences += KaggleWord2VecUtility.review_to_sentences(review, tokenizer)
 #seems useful, but if solve .csv file:remove deliminator, then, fine
-    # print "Parsing sentences from unlabeled set"
+    # print("Parsing sentences from unlabeled set")
     # # for review in unlabeled_train_cff["review"]:
     # for review in fullfile:
     #     if str(review).strip() != '' and str(review).strip() != ' ':
@@ -183,16 +183,14 @@ if __name__ == '__main__':
 
     # Initialize and train the model (this will take some time)
 
-    print "Training Word2Vec model...for phrase-haixia modify"
+    print("Training Word2Vec model...for phrase-haixia modify")
 
     # model = Word2Vec(sentences, workers=num_workers, \
     #             size=num_features, min_count = min_word_count, \
     #             window = context, sample = downsampling, seed=1)
     #
     bigramtransformer = gensim.models.Phrases(sentences)
-    model = Word2Vec(bigramtransformer[sentences], workers=num_workers, \
-                size=num_features, min_count = min_word_count, \
-                window = context, sample = downsampling, seed=1)
+    model = Word2Vec(bigramtransformer[sentences], workers=num_workers, vector_size=num_features, min_count = min_word_count, window = context, sample = downsampling, seed=1)
 
 
     # If you don't plan to train the model any further, calling

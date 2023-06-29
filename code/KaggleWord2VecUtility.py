@@ -8,9 +8,10 @@ import numpy as np
 
 from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
+from importlib import reload
 import sys
 reload(sys)
-sys.setdefaultencoding('utf8')
+#sys.setdefaultencoding('utf8')
 
 class KaggleWord2VecUtility(object):
     """KaggleWord2VecUtility is a utility class for processing raw HTML text into segments for further learning"""
@@ -46,10 +47,10 @@ class KaggleWord2VecUtility(object):
         # list of sentences, where each sentence is a list of words
         #
         # 1. Use the NLTK tokenizer to split the paragraph into sentences
-        strReviewClean = str(review).decode('utf8').strip().replace('_comma_',',')
+        strReviewClean = str(review).decode().strip().replace('_comma_',',')
         strReviewClean = strReviewClean.replace("  "," ")
         # print strReviewClean
-        raw_sentences = tokenizer.tokenize(str(strReviewClean).decode('utf8').strip())
+        raw_sentences = tokenizer.tokenize(str(strReviewClean).strip())
         #
         # 2. Loop over each sentence
         sentences = []
